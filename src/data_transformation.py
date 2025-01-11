@@ -67,10 +67,12 @@ def generate_chart_pokemon_type_distribution(df_type_count):
     """
     logging.info('Generating column chart Pokemon type.')
     ONFLY_COLOR = '#009efa'
+    plt.figure(figsize=(12, 8)) 
     ax = sns.barplot(x='Tipos', y='Quantidade', data=df_type_count, err_kws={'linewidth': 0}, color=ONFLY_COLOR)
     for container in ax.containers:
         ax.bar_label(container)
     ax.set_title('Quantidade de pokemons por tipo', fontweight='bold', fontsize=16)
     ax.set_xlabel('Tipo', fontweight='bold') 
     ax.set_ylabel('Quantidade', fontweight='bold')
-    plt.savefig('reports/distribuicao_pokemon_tipo.png')
+    plt.xticks(rotation=45, ha='right') 
+    plt.savefig('reports/distribuicao_pokemon_tipo.png', bbox_inches='tight')
