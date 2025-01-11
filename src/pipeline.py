@@ -12,11 +12,14 @@ def run_pipeline():
     setup_logging()
     logging.info('Pipeline started.')
     try:
-        # tarefa 1
+        # tarefa 1.1 e 1.2: extraindo os dados e criando o dataframe
         df_pokemons = ext.get_pokemons_dataframe(10)
-        # tarefa 2
+
+        # tarefa 2.1: categorizando os dados
         logging.info('Categorizing pokemons.')
         df_pokemons['Categoria'] = df_pokemons['Experiência Base'].apply(t.categorize_base_experience)
+        
+        # tarefa 2.2: 
         df_types = t.get_df_pokemon_by_type(df_pokemons)
         t.generate_chart_pokemon_type_distribution(df_types)
         # tarefa 3

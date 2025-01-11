@@ -3,7 +3,16 @@ from pandas import DataFrame
 import logging
 
 def fetch_pokemons_data(limit = 100, offset = 0):
-    '''Function to fetch data of pokemons via PokeAPI'''
+    '''
+    Fetches a list of Pokémon data from the PokeAPI.
+
+    Parameters:
+    limit (int): The number of Pokémon to fetch (default is 100).
+    offset (int): The starting point for the fetch (default is 0).
+
+    Returns:
+    list: A list of Pokémon data or an empty list if the request fails.
+    '''
     url = f'https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}'
     try:
         logging.info('Fetching Pokémon list from API...')
@@ -16,7 +25,15 @@ def fetch_pokemons_data(limit = 100, offset = 0):
         return []
 
 def fetch_pokemon_details(poke_url):
-    '''Function to fetch additional details of each Pokémon'''
+    '''
+    Fetches detailed information for a specific Pokémon from its URL.
+
+    Parameters:
+    poke_url (str): The URL of the specific Pokémon to fetch.
+
+    Returns:
+    dict or None: The Pokémon's details in a dictionary or None if the request fails.
+    '''
     logging.info(f'Fetching details for Pokémon from {poke_url}')
     try:
         response = requests.get(poke_url, timeout=30)
@@ -28,7 +45,15 @@ def fetch_pokemon_details(poke_url):
         return None
 
 def extract_stats(stats: dict):
-    '''Extract HP, attack, and defense stats from pokemon's stats'''
+    '''
+    Extracts HP, attack, and defense stats from a Pokémon's stat data.
+
+    Parameters:
+    stats (dict): A dictionary of the Pokémon's stat information.
+
+    Returns:
+    tuple: A tuple containing HP, attack, and defense values (or None if missing).
+    '''
     hp = attack = defense = None
     if stats:
         for stat in stats:
@@ -43,7 +68,15 @@ def extract_stats(stats: dict):
     return hp, attack, defense
 
 def format_pokemon_necessary_data(poke_details):
-    '''Formats a Pokémon's details into a structured dictionary with only necessary infos.'''
+    '''
+    Formats a Pokémon's details into a structured dictionary with necessary information.
+
+    Parameters:
+    poke_details (dict): A dictionary containing the Pokémon's full details.
+
+    Returns:
+    dict: A structured dictionary with ID, name, base experience, types, HP, attack, and defense.
+    '''
     if not poke_details:
         logging.error('Pokémon details are missing or empty.')
         return {}
@@ -61,7 +94,13 @@ def format_pokemon_necessary_data(poke_details):
 
 def get_pokemons_dataframe(poke_qnt: int):
     '''
-    Fetches Pokémon data, extract necessary infos and returns it as a DataFrame.
+    Fetches Pokémon data, extracts necessary information, and returns it as a DataFrame.
+
+    Parameters:
+    poke_qnt (int): The number of Pokémon to fetch and process.
+
+    Returns:
+    pandas.DataFrame: A DataFrame containing the Pokémon data or an empty DataFrame if no data is fetched.
     '''
     pokemons_list = fetch_pokemons_data(limit=poke_qnt)
     if not pokemons_list:
