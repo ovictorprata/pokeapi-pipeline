@@ -53,9 +53,9 @@ Se preferir rodar o pipeline localmente (sem Docker), siga os passos abaixo:
 
 2.  Execute o script principal pipeline.py:
 
-        ```bash
-        python src/pipeline.py
-        ```
+    ```bash
+    python src/pipeline.py
+    ```
 
     **O script irá:**
 
