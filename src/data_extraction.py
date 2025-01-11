@@ -32,8 +32,8 @@ def extract_stats(stats: dict):
             defense = stat['base_stat']
     return hp, attack, defense
 
-def format_pokemon_data(poke_details):
-    '''Formats a Pokémon's details into a structured dictionary.'''
+def format_pokemon_necessary_data(poke_details):
+    '''Formats a Pokémon's details into a structured dictionary with only necessary infos.'''
     hp, attack, defense = extract_stats(poke_details['stats'])
     formatted_data = {
         'ID': poke_details['id'],
@@ -56,7 +56,7 @@ def get_pokemons_dataframe(poke_qnt: int):
     for pokemon in pokemons_list:
         poke_details = fetch_pokemon_details(pokemon['url'])
         if poke_details:
-            formatted_poke_data = format_pokemon_data(poke_details)
+            formatted_poke_data = format_pokemon_necessary_data(poke_details)
             pokes_data.append(formatted_poke_data)
     
     return DataFrame(pokes_data)
