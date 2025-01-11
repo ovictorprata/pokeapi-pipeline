@@ -82,7 +82,7 @@ docker build -t pokemon-pipeline .
 Após construir a imagem, execute o pipeline com o comando:
 
 ```bash
-docker run -v $(pwd)/reports:/app/reports pokemon-pipeline
+docker run -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs pokemon-pipeline
 ```
 
 O comando acima usa a flag -v para mapear a pasta reports/ do seu sistema local para a pasta reports/ dentro do container. Se a pasta reports/ não existir em seu sistema local, ela será criada automaticamente.
