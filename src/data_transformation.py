@@ -1,13 +1,14 @@
 from pandas import DataFrame
-
 import matplotlib.pyplot as plt
 import seaborn as sns
+import logging
 
-def categorize_base_experience(base_experinece):
-    category =  None
-    if base_experinece < 50:
+def categorize_base_experience(base_experience):
+    if base_experience is None:
+        return None
+    if base_experience < 50:
         category = 'Fraco'
-    elif base_experinece <= 100:
+    elif base_experience <= 100:
         category = 'Médio'
     else:
         category = 'Forte'
@@ -15,11 +16,14 @@ def categorize_base_experience(base_experinece):
 
 
 def get_df_pokemon_by_type(df_pokemons):
-    exploded_types = df_pokemons['Tipos'].explode()
-    df_type_count = exploded_types.value_counts().reset_index()
-    df_type_count.columns = ['Tipos', 'Quantidade']
-    return df_type_count
- 
+    try:
+        exploded_types = df_pokemons['Tipos'].explode()
+        df_type_count = exploded_types.value_counts().reset_index()
+        df_type_count.columns = ['Tipos', 'Quantidade']
+        return df_type_count
+    except Exception as e:
+        logging.error(f'Failed to generate Pokémon type count DataFrame: {e}')
+        return DataFrame()
 
 def generate_chart_pokemon_type_distribution(df_type_count):
     ONFLY_COLOR = '#009efa'
