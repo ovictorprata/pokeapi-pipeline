@@ -34,7 +34,6 @@ def run_pipeline():
         print(df_means)
         print('-' * 70)
         df_top_5 = a.get_top_5_highest_base_experience(df_pokemons)
-        print(df_top_5)
         df_top_5.to_csv('reports/top_5_base_experience.csv')
         print('\nTop 5 pokemons com maiores experiências base')
         print('-' * 70)
