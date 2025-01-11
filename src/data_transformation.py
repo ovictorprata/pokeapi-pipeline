@@ -16,6 +16,7 @@ def categorize_base_experience(base_experience):
 
 
 def get_df_pokemon_by_type(df_pokemons):
+    logging.info('Generating Pokémon type count DataFrame.')
     try:
         exploded_types = df_pokemons['Tipos'].explode()
         df_type_count = exploded_types.value_counts().reset_index()
@@ -26,6 +27,7 @@ def get_df_pokemon_by_type(df_pokemons):
         return DataFrame()
 
 def generate_chart_pokemon_type_distribution(df_type_count):
+    logging.info('Generating column chart Pokemon type.')
     ONFLY_COLOR = '#009efa'
     ax = sns.barplot(x='Tipos', y='Quantidade', data=df_type_count, err_kws={'linewidth': 0}, color=ONFLY_COLOR)
     for container in ax.containers:

@@ -6,11 +6,10 @@ def fetch_pokemons_data(limit = 100, offset = 0):
     '''Function to fetch data of pokemons via PokeAPI'''
     url = f'https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}'
     try:
-        logging.info('Attempting to fetch Pokémon list from API...')
+        logging.info('Fetching Pokémon list from API...')
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         pokes_data = response.json()
-        logging.info(f'{len(pokes_data["results"])} Pokémon fetched successfully.')
         return pokes_data.get('results')
     except requests.exceptions.RequestException as e:
         logging.error(f'Failed to fetch Pokémon data: {e}')
@@ -18,13 +17,11 @@ def fetch_pokemons_data(limit = 100, offset = 0):
 
 def fetch_pokemon_details(poke_url):
     '''Function to fetch additional details of each Pokémon'''
-    logging.info(f'Attempting to fetch details for Pokémon from {poke_url}')
-    response = requests.get(poke_url)
+    logging.info(f'Fetching details for Pokémon from {poke_url}')
     try:
         response = requests.get(poke_url, timeout=30)
         response.raise_for_status()
         poke_details = response.json()
-        logging.info(f'Details fetched for Pokémon ID {poke_details.get("id")}.')
         return poke_details
     except requests.exceptions.RequestException as e:
         logging.error(f'Failed to fetch Pokémon details: {e}')
@@ -64,9 +61,8 @@ def format_pokemon_necessary_data(poke_details):
 
 def get_pokemons_dataframe(poke_qnt: int):
     '''
-    Fetches Pokémon data and returns it as a DataFrame.
+    Fetches Pokémon data, extract necessary infos and returns it as a DataFrame.
     '''
-    logging.info(f'Starting the process to fetch {poke_qnt} Pokémon.')
     pokemons_list = fetch_pokemons_data(limit=poke_qnt)
     if not pokemons_list:
         logging.error('No Pokémon data fetched; returning an empty DataFrame.')
@@ -83,8 +79,4 @@ def get_pokemons_dataframe(poke_qnt: int):
                 logging.warning(f'Formatted data for Pokémon {pokemon["name"]} is missing.')
     
     df = DataFrame(pokes_data)
-    if df.empty:
-        logging.warning('The resulting DataFrame is empty.')
-    else:
-        logging.info('Pokémon data successfully transformed into DataFrame.')
     return df
