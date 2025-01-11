@@ -15,8 +15,8 @@ def get_top_5_highest_base_experience(df_pokemons):
     top_5_names = top_5[['Nome']].reset_index(drop=True)
     top_5_names.index += 1 
     top_5_names.columns = ['Pokemon']
-    top_5_names['Posição'] = top_5_names.index
-    top_5_names = top_5_names[['Posição', 'Pokemon']]
+    top_5_names = top_5_names[['Pokemon']]
+    top_5_names.index.name = 'Posição'
     return top_5_names
 
 def get_attack_defense_hp_mean_per_type(df_pokemons):

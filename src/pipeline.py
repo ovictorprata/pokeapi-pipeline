@@ -27,13 +27,14 @@ def run_pipeline():
 
         # tarefa 3.1: calcular e exibir analise estatistica do top 5 pokemons e gerar relatório
         df_means = a.get_attack_defense_hp_mean_per_type(df_pokemons)
-        df_means.to_csv('reports/means_attack_defense_hp.csv')
+        df_means.to_csv('reports/means_attack_defense_hp.csv', index=False)
         # tarefa 3.2: calcular e exibir analise estatistica das médias e gerar relatório
         print('\n Médias de HP, Ataque e Defesa')
         print('-' * 70)
         print(df_means)
         print('-' * 70)
         df_top_5 = a.get_top_5_highest_base_experience(df_pokemons)
+        print(df_top_5)
         df_top_5.to_csv('reports/top_5_base_experience.csv')
         print('\nTop 5 pokemons com maiores experiências base')
         print('-' * 70)
