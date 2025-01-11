@@ -1,4 +1,5 @@
 from pandas import DataFrame
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -19,11 +20,13 @@ def get_df_pokemon_by_type(df_pokemons):
     df_type_count.columns = ['Tipos', 'Quantidade']
     return df_type_count
  
-def plot_pokemon_type_distribution(df_type_count):
-    ax = sns.barplot(x='Tipos', y='Quantidade', data=df_type_count, errwidth=0, color='#009efa')
+
+def generate_chart_pokemon_type_distribution(df_type_count):
+    ONFLY_COLOR = '#009efa'
+    ax = sns.barplot(x='Tipos', y='Quantidade', data=df_type_count, err_kws={'linewidth': 0}, color=ONFLY_COLOR)
     for container in ax.containers:
         ax.bar_label(container)
     ax.set_title('Quantidade de pokemons por tipo', fontweight='bold', fontsize=16)
     ax.set_xlabel('Tipo', fontweight='bold') 
     ax.set_ylabel('Quantidade', fontweight='bold')
-    plt.show()
+    plt.savefig('reports/distribuicao_pokemon_tipo.png')
