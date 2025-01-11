@@ -46,11 +46,11 @@ def format_pokemon_data(poke_details):
     }
     return formatted_data   
 
-def get_pokemons_dataframe():
+def get_pokemons_dataframe(poke_qnt: int):
     '''
     Fetches Pokémon data and returns it as a DataFrame.
     '''
-    pokemons_list = fetch_pokemons_data(limit=1)
+    pokemons_list = fetch_pokemons_data(limit=poke_qnt)
 
     pokes_data = []
     for pokemon in pokemons_list:
@@ -60,8 +60,3 @@ def get_pokemons_dataframe():
             pokes_data.append(formatted_poke_data)
     
     return DataFrame(pokes_data)
-
-
-print(get_pokemons_dataframe())
-
-    
