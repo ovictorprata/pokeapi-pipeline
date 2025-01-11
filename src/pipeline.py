@@ -13,7 +13,7 @@ def run_pipeline():
     logging.info('Pipeline started.')
     try:
         # tarefa 1.1 e 1.2: extraindo os dados e criando o dataframe
-        df_pokemons = ext.get_pokemons_dataframe(10)
+        df_pokemons = ext.get_pokemons_dataframe(100)
 
         # tarefa 2.1: categorizando os dados
         logging.info('Categorizing pokemons.')
