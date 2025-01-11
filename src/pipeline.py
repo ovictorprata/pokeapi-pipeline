@@ -19,12 +19,16 @@ def run_pipeline():
         logging.info('Categorizing pokemons.')
         df_pokemons['Categoria'] = df_pokemons['Experiência Base'].apply(t.categorize_base_experience)
         
-        # tarefa 2.2: 
+        # tarefa 2.2.1: criar df de contagem por tipos 
         df_types = t.get_df_pokemon_by_type(df_pokemons)
+        
+        # tarefa 2.2.2: gerar gráfico de barras com a contagem por tipos 
         t.generate_chart_pokemon_type_distribution(df_types)
-        # tarefa 3
+
+        # tarefa 3.1: calcular e exibir analise estatistica do top 5 pokemons e gerar relatório
         df_means = a.get_attack_defense_hp_mean_per_type(df_pokemons)
         df_means.to_csv('reports/means_attack_defense_hp.csv')
+        # tarefa 3.2: calcular e exibir analise estatistica das médias e gerar relatório
         print('\n Médias de HP, Ataque e Defesa')
         print('-' * 70)
         print(df_means)
