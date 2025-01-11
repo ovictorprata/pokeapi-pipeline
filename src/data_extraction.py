@@ -4,24 +4,24 @@ import logging
 
 def fetch_pokemons_data(limit = 100, offset = 0):
     '''Function to fetch data of pokemons via PokeAPI'''
-    logging.info('Attempting to fetch Pokémon list from API...')
     url = f'https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}'
     try:
+        logging.info('Attempting to fetch Pokémon list from API...')
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         pokes_data = response.json()
         logging.info(f'{len(pokes_data["results"])} Pokémon fetched successfully.')
-        return pokes_data.get('results', [])
+        return pokes_data.get('results')
     except requests.exceptions.RequestException as e:
         logging.error(f'Failed to fetch Pokémon data: {e}')
-        return None
+        return []
 
 def fetch_pokemon_details(poke_url):
     '''Function to fetch additional details of each Pokémon'''
     logging.info(f'Attempting to fetch details for Pokémon from {poke_url}')
     response = requests.get(poke_url)
     try:
-        response = requests.get(poke_url, timeout=10)
+        response = requests.get(poke_url, timeout=30)
         response.raise_for_status()
         poke_details = response.json()
         logging.info(f'Details fetched for Pokémon ID {poke_details.get("id")}.')
